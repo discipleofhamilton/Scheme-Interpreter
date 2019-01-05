@@ -9,6 +9,6 @@
 ## 實現環境
 
 * OS : Win 10
-* IDE : CodeBlocks 16.1
+* IDE : CodeBlocks 16.01
 * Implement language : C++11
 * Compiler : MinGW

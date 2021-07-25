@@ -2,7 +2,7 @@
 // Created by Hamilton Chang MSI on 2019/1/16.
 //
 
-#include "../header/Scanner.h"
+#include "Scanner.h"
 
 // private
 
@@ -18,7 +18,7 @@ void ObjScanner::DealWithString() {
   char first = '\0', second = '\0' ;
 
   first = getchar() ;
-  uErrorColumn = uErrorColumn + 1 ;
+  uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
 
   // 將起始點設為雙引號的下一個
   // 查看在ENTER前是否有另一個雙引號
@@ -29,7 +29,7 @@ void ObjScanner::DealWithString() {
     if ( first == '\\' ) {
 
       second = getchar() ; // 下一個字元
-      uErrorColumn = uErrorColumn + 1 ;
+      uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
 
       // 且下個字元是n時
       if ( second == 'n' )
@@ -61,14 +61,14 @@ void ObjScanner::DealWithString() {
       mCurrentToken.strToken = mCurrentToken.strToken + first ; // 將此character加到token尾端
 
     first = getchar() ;
-    uErrorColumn = uErrorColumn + 1 ;
+    uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
   } // end while
 
   if ( first == '\"' )
     mCurrentToken.strToken = mCurrentToken.strToken + first ; // 將此character加到token尾端 ;
 
   else if ( first == -1 )
-    uEndOfFileOcurred = true ;
+    uGlobal::uEndOfFileOcurred = true ;
 
   else // first == '\n'
     throw NO_CLOSING_QUOTE ; // throw error
@@ -190,44 +190,44 @@ Token ObjScanner::GetToken() {
 
   if ( ch == '\n' ) {
 
-    if ( uDoesThisLineHasOutput ) {
-      uDoesThisLineHasOutput = false ;
-      uErrorLine = 1 ;
-      uErrorColumn = 0 ;
+    if ( uGlobal::uDoesThisLineHasOutput ) {
+      uGlobal::uDoesThisLineHasOutput = false ;
+      uGlobal::uErrorLine = 1 ;
+      uGlobal::uErrorColumn = 0 ;
     } // end if
 
     else {
-      uErrorLine = uErrorLine + 1 ;
-      uErrorColumn = 0 ;
+      uGlobal::uErrorLine = uGlobal::uErrorLine + 1 ;
+      uGlobal::uErrorColumn = 0 ;
     } // end else
 
   } // end if
   else
-    uErrorColumn = uErrorColumn + 1 ;
+    uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
 
   while ( ch == ' ' || ch == '\t' || ch == '\n' ) {
 
     ch = getchar() ;
 
     if ( ch == '\n' ) {
-      if ( uDoesThisLineHasOutput ) {
-        uDoesThisLineHasOutput = false ;
-        uErrorLine = 1 ;
-        uErrorColumn = 0 ;
+      if ( uGlobal::uDoesThisLineHasOutput ) {
+        uGlobal::uDoesThisLineHasOutput = false ;
+        uGlobal::uErrorLine = 1 ;
+        uGlobal::uErrorColumn = 0 ;
       } // end if
 
       else {
-        uErrorLine = uErrorLine + 1 ;
-        uErrorColumn = 0 ;
+        uGlobal::uErrorLine = uGlobal::uErrorLine + 1 ;
+        uGlobal::uErrorColumn = 0 ;
       } // end else
     } // end if
     else
-      uErrorColumn = uErrorColumn + 1 ;
+      uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
 
   } // end while
 
   if ( ch != ';' )
-    uDoesThisLineHasOutput = false ;
+    uGlobal::uDoesThisLineHasOutput = false ;
 
   if ( ch == '\"' ) {
 
@@ -247,15 +247,15 @@ Token ObjScanner::GetToken() {
 
     if ( ch == '\n' ) {
 
-      if ( uDoesThisLineHasOutput ) {
-        uDoesThisLineHasOutput = false ;
-        uErrorLine = 1 ;
-        uErrorColumn = 0 ;
+      if ( uGlobal::uDoesThisLineHasOutput ) {
+        uGlobal::uDoesThisLineHasOutput = false ;
+        uGlobal::uErrorLine = 1 ;
+        uGlobal::uErrorColumn = 0 ;
       } // end if
 
       else {
-        uErrorLine = uErrorLine + 1 ;
-        uErrorColumn = 0 ;
+        uGlobal::uErrorLine = uGlobal::uErrorLine + 1 ;
+        uGlobal::uErrorColumn = 0 ;
       } // end else
 
       Token thistoken = GetToken() ;
@@ -345,23 +345,23 @@ Token ObjScanner::GetToken() {
 
     mCurrentToken.strToken = mCurrentToken.strToken + ch ;
     ch     = getchar() ;
-    uErrorColumn = uErrorColumn + 1 ;
+    uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
   } // end while
 
   // 處理eof錯誤訊息
   if ( ch == -1 ) {
-    uEndOfFileOcurred = true ;
+    uGlobal::uEndOfFileOcurred = true ;
   } // end if
 
     // 處理eof以外的錯誤訊息
   else if ( ch == '\n' ) {
-    uErrorLine   = uErrorLine + 1 ;
-    uErrorColumn = 0 ;
+    uGlobal::uErrorLine   = uGlobal::uErrorLine + 1 ;
+    uGlobal::uErrorColumn = 0 ;
   } // end else if
 
   else if ( ch == ' ' || ch == '\t' || ch == '(' || ch == ')' || ch == '\"' || ch == '\'' || ch == ';' ) {
     cin.putback( ch ) ;
-    uErrorColumn = uErrorColumn - 1 ;
+    uGlobal::uErrorColumn = uGlobal::uErrorColumn - 1 ;
   } // end else if
 
   return PreprocessingToken() ;

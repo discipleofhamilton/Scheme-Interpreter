@@ -2,7 +2,7 @@
 // Created by Hamilton Chang MSI on 2019/1/16.
 //
 
-# include "../header/Evaluator.h"
+#include "Evaluator.h"
 
 map<string,string> uFunctionNamesMap ; // 當keyword是atom實用的map
 
@@ -310,7 +310,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
 
     // 當只有一個節點時
     if ( result->left == NULL && result->right == NULL ) {
-      uErrorFuncN = "car" ;
+      uGlobal::uErrorFuncN = "car" ;
       mErrorPointer = result ;
       throw INCORRECT_ARGUMENT_TYPE ;
     } // end if
@@ -329,7 +329,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
 
     // 當只有一個節點時
     if ( result->left == NULL && result->right == NULL ) {
-      uErrorFuncN = "cdr" ;
+      uGlobal::uErrorFuncN = "cdr" ;
       mErrorPointer = result ;
       throw INCORRECT_ARGUMENT_TYPE ;
     } // end if
@@ -584,7 +584,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
       } // end if
 
       else {
-        uErrorFuncN = "+" ;
+        uGlobal::uErrorFuncN = "+" ;
         mErrorPointer = tree->left ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
@@ -640,7 +640,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
       } // end if
 
       else {
-        uErrorFuncN = "-" ;
+        uGlobal::uErrorFuncN = "-" ;
         mErrorPointer = tree->left ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
@@ -696,7 +696,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
       } // end if
 
       else {
-        uErrorFuncN = "*" ;
+        uGlobal::uErrorFuncN = "*" ;
         mErrorPointer = tree->left ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
@@ -781,7 +781,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
               // throw Error Message
               // ERROR (XXX with incorrect argument type) : the-evaluated-result
               // XXX must bi the name of some primitive function
-              uErrorFuncN = "/" ;
+              uGlobal::uErrorFuncN = "/" ;
               mErrorPointer = tree->left ;
               throw INCORRECT_ARGUMENT_TYPE ;
 
@@ -847,7 +847,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         // ERROR (XXX with incorrect argument type) : the-evaluated-result
         // XXX must bi the name of some primitive function
 
-        uErrorFuncN = "/" ;
+        uGlobal::uErrorFuncN = "/" ;
         mErrorPointer = tree->left ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
@@ -995,7 +995,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = ">" ;
+        uGlobal::uErrorFuncN = ">" ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
 
@@ -1062,7 +1062,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = ">=" ;
+        uGlobal::uErrorFuncN = ">=" ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
 
@@ -1129,7 +1129,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "<" ;
+        uGlobal::uErrorFuncN = "<" ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
 
@@ -1196,7 +1196,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "<=" ;
+        uGlobal::uErrorFuncN = "<=" ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
 
@@ -1263,7 +1263,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "=" ;
+        uGlobal::uErrorFuncN = "=" ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
 
@@ -1308,7 +1308,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         // ERROR (XXX with incorrect argument type) : the-evaluated-result
         // XXX must bi the name of some primitive function
 
-        uErrorFuncN = "string-append" ;
+        uGlobal::uErrorFuncN = "string-append" ;
         mErrorPointer = arg ;
         throw INCORRECT_ARGUMENT_TYPE ;
       } // end else
@@ -1362,7 +1362,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "string>?" ;
+        uGlobal::uErrorFuncN = "string>?" ;
         throw INCORRECT_ARGUMENT_TYPE ;
 
       } // end else
@@ -1427,7 +1427,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "string<?" ;
+        uGlobal::uErrorFuncN = "string<?" ;
         throw INCORRECT_ARGUMENT_TYPE ;
 
       } // end else
@@ -1492,7 +1492,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
         else
           mErrorPointer = argTwo ;
 
-        uErrorFuncN = "string=?" ;
+        uGlobal::uErrorFuncN = "string=?" ;
         throw INCORRECT_ARGUMENT_TYPE ;
 
       } // end else
@@ -1592,7 +1592,7 @@ ObjParser::Cons_node* ObjEvaluation::EvalFunctions(ObjParser::Cons_node *tree, i
 
               string procedure = "" ;
               procedure.clear() ;
-              procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+              procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
               if ( argOne->atom.strToken == procedure && argTwo->atom.strToken == procedure &&
                    procedure != "#<procedure quote>" )
@@ -2134,10 +2134,10 @@ string ObjEvaluation::RepairNameOfInternalFunction(string symbol) {
 
     string procedure = "" ;
     procedure.clear() ;
-    procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+    procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
     if ( symbol == procedure )
-      internalFunction = uFunctionName[i] ;
+      internalFunction = uGlobal::uFunctionName[i] ;
 
   } // end for
 
@@ -2200,7 +2200,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
 
       if ( node == NULL ) {
 
-        uErrorToken = tree->atom.strToken ;
+        uGlobal::uErrorToken = tree->atom.strToken ;
         throw UNBOUND_SYMBOL ;
 
         // throw Error Message
@@ -2235,7 +2235,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
     if ( IsAtom( tree->left->atom.attribution ) && tree->left->atom.attribution != SYMBOL &&
          tree->left->atom.attribution != QUOTE ) {
 
-      uErrorToken = tree->left->atom.strToken ;
+      uGlobal::uErrorToken = tree->left->atom.strToken ;
       throw ATTEMPT_TO_APPLY_NON_FUNCTION ;
 
       // throw Error Message
@@ -2260,7 +2260,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
 
           string procedure = "" ;
           procedure.clear() ;
-          procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+          procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
           if ( tree->left->atom.strToken == procedure )
             isInternalFunction = true ;
@@ -2271,7 +2271,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
           ; // Do Nothing
 
         else {
-          uErrorToken = tree->left->atom.strToken ;
+          uGlobal::uErrorToken = tree->left->atom.strToken ;
           throw ATTEMPT_TO_APPLY_NON_FUNCTION ;
         } // end else
 
@@ -2280,7 +2280,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
                             tree->left->atom.strToken == "#<procedure define>" ||
                             tree->left->atom.strToken == "#<procedure exit>" ) ) {
 
-          uErrorToken = tree->left->atom.strToken ;
+          uGlobal::uErrorToken = tree->left->atom.strToken ;
           throw LEVEL_ERROR ;
 
           // throw Error Message
@@ -2307,7 +2307,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
           if ( !CheckFormat( tree ) ) {
 
             mErrorPointer = tree ;
-            uErrorToken   = tree->left->atom.strToken ;
+            uGlobal::uErrorToken   = tree->left->atom.strToken ;
             throw FORMAT_ERROR ;
 
             // throw Error Message
@@ -2334,7 +2334,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
           // "NOT" correct
           if ( !CheckNumberOfVariable( tree, numofArg ) ) {
 
-            uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
+            uGlobal::uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
             throw INCORRECT_NUMBER_OF_ARGUMENT ;
 
             // throw Error Message
@@ -2355,7 +2355,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
           // "NOT" correct
           if ( !CheckNumberOfVariable( tree, numofArg ) ) {
 
-            uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
+            uGlobal::uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
             throw INCORRECT_NUMBER_OF_ARGUMENT ;
 
             // throw Error Message
@@ -2374,7 +2374,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
         // ERROR (attempt to apply non-function) : ATOM // ATOM is the binding of Symbol
         // cout << "ERROR (unbound symbol)" << endl ;
 
-        uErrorToken = errToken ;
+        uGlobal::uErrorToken = errToken ;
         throw UNBOUND_SYMBOL ;
 
       } // end else
@@ -2397,7 +2397,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
       // 是，it is an internal function
       if ( mIsQuote ) {
         mIsQuote = false ;
-        uErrorToken = errToken->atom.strToken ;
+        uGlobal::uErrorToken = errToken->atom.strToken ;
         throw ATTEMPT_TO_APPLY_NON_FUNCTION ;
         // throw Error Message
         // ERROR (attempt to apply non-function) : First-Argument
@@ -2411,7 +2411,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
 
           string procedure = "" ;
           procedure.clear() ;
-          procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+          procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
           if ( tree->left->atom.strToken == procedure )
             isInternalFunction = true ;
@@ -2432,7 +2432,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
         // "NOT" correct
         if ( !CheckNumberOfVariable( tree, numofArg ) ) {
 
-          uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
+          uGlobal::uErrorToken = RepairNameOfInternalFunction( tree->left->atom.strToken ) ;
           throw INCORRECT_NUMBER_OF_ARGUMENT ;
 
           // throw Error Message
@@ -2502,11 +2502,11 @@ void ObjEvaluation::ErrorPrettyPrint(ObjParser::Cons_node *tree, int level) {
 
           string procedure = "" ;
           procedure.clear() ;
-          procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+          procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
           if ( tree->atom.strToken == procedure ) {
 
-            functionName = uFunctionName[i] ;
+            functionName = uGlobal::uFunctionName[i] ;
             isInternalFunction = true ;
 
           } // end if
@@ -2592,11 +2592,11 @@ void ObjEvaluation::ErrorPrettyPrint(ObjParser::Cons_node *tree, int level) {
 
                   string procedure = "" ;
                   procedure.clear() ;
-                  procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+                  procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
                   if ( tree->atom.strToken == procedure ) {
 
-                    functionName = uFunctionName[i] ;
+                    functionName = uGlobal::uFunctionName[i] ;
                     isInternalFunction = true ;
 
                   } // end if
@@ -2642,10 +2642,10 @@ void ObjEvaluation::ErrorPrettyPrint(ObjParser::Cons_node *tree, int level) {
 
                 string procedure = "" ;
                 procedure.clear() ;
-                procedure        = "#<procedure " + uFunctionName[i] + ">" ;
+                procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
 
                 if ( tree->atom.strToken == procedure ) {
-                  functionName = uFunctionName[i] ;
+                  functionName = uGlobal::uFunctionName[i] ;
                   isInternalFunction = true ;
                 } // end if
 

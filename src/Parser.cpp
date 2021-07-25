@@ -2,7 +2,7 @@
 // Created by Hamilton Chang MSI on 2019/1/16.
 //
 
-#include "../header/Parser.h"
+#include "Parser.h"
 
 // protected
 
@@ -89,7 +89,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
 
   bool isDottedPairOccurred = false ;
 
-  if ( uEndOfFileOcurred )
+  if ( uGlobal::uEndOfFileOcurred )
     return tree ;
 
     // 如果此節點是第一個節點
@@ -138,7 +138,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
     } // end else if
 
     else {
-      uErrorToken = thisToken.strToken ;
+      uGlobal::uErrorToken = thisToken.strToken ;
       throw UNEXPECTED_TOKEN_ONE ;
     } // end else
 
@@ -183,7 +183,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
 
         // 如果上一個token是quote
         if ( tree->right != NULL && tree->right->atom.attribution == NIL ) {
-          uErrorToken = thisToken.strToken ;
+          uGlobal::uErrorToken = thisToken.strToken ;
           throw UNEXPECTED_TOKEN_ONE ;
         } // end if
 
@@ -231,7 +231,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
 
       else {
 
-        uErrorToken = thisToken.strToken ;
+        uGlobal::uErrorToken = thisToken.strToken ;
         throw UNEXPECTED_TOKEN_ONE ;
 
       } // end else
@@ -326,7 +326,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
 
           // 錯誤訊息
         else {
-          uErrorToken = thisToken.strToken ;
+          uGlobal::uErrorToken = thisToken.strToken ;
           throw UNEXPECTED_TOKEN_ONE ;
         } // end else
 
@@ -360,7 +360,7 @@ ObjParser::Cons_node* ObjParser::BuildTree(ObjParser::Cons_node *tree) {
       mdotted_pait = mdotted_pait - 1 ;
 
     else {
-      uErrorToken = tokenRP.strToken ;
+      uGlobal::uErrorToken = tokenRP.strToken ;
       throw UNEXPECTED_TOKEN_TWO ;
     } // end else
 

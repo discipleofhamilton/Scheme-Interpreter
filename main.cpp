@@ -8,7 +8,7 @@
 //  version3.0      Hamilton Chang      2019/00/   - 2019/00/       Extend Function 'define', Add Function 'let', 'lambda' (without error)
 // **********************************************************************************************************************************************
 
-#include "header/Evaluator.h" // Evaluator class
+#include "Evaluator.h" // Evaluator class
 #include "header/Error.h"     // Error class
 
 int main() {
@@ -19,15 +19,15 @@ int main() {
   Error         errMesg ;       // 宣告error
   int           numofFunc = 0 ; // Internal Function的數目
 
-  numofFunc = sizeof( uFunctionName ) / sizeof( uFunctionName[0] ) ;
+  numofFunc = sizeof( uGlobal::uFunctionName ) / sizeof( uGlobal::uFunctionName[0] ) ;
 
   // 將要keyword是atom時，所需要輸出的string
   for ( int i = 0 ; i < numofFunc ; i++ ) {
 
     string procedure = "" ;
     procedure.clear() ;
-    procedure        = "#<procedure " + uFunctionName[i] + ">" ;
-    uFunctionNamesMap[uFunctionName[i]] = procedure ;
+    procedure        = "#<procedure " + uGlobal::uFunctionName[i] + ">" ;
+    uFunctionNamesMap[uGlobal::uFunctionName[i]] = procedure ;
 
   } // end for
 
@@ -46,17 +46,17 @@ int main() {
       if ( !parser.CheckEXIT( parser.mroot ) ) {
 
         // parser.PrettyPrint( parser.mroot, 0 ) ; // pretty print, 第一個參數:指向樹根節點的pointer、第二個參數:level
-        uProjNumber = 2 ;
+        uGlobal::uProjNumber = 2 ;
         evaluate.mReturnPointer = evaluate.Evaluate( parser.mroot, true ) ;
         parser.PrettyPrint( evaluate.mReturnPointer, 0 ) ; // pretty print, 第一個參數:指向樹根節點的pointer、第二個參數:level
         // parser.ClearAll( parser.mroot ) ;       // 清空樹
         parser.mroot = NULL ; // 將pointer指向NULL
 
         // ERROR line and column initialize
-        uProjNumber  = 1 ;
-        uErrorLine   = 1 ;
-        uErrorColumn = 0 ;
-        uDoesThisLineHasOutput = true ; // 此行一有輸出，此bool就設為true
+        uGlobal::uProjNumber  = 1 ;
+        uGlobal::uErrorLine   = 1 ;
+        uGlobal::uErrorColumn = 0 ;
+        uGlobal::uDoesThisLineHasOutput = true ; // 此行一有輸出，此bool就設為true
         evaluate.ReObjEvalutaion() ;
 
         cout << "\n> " ;
@@ -67,39 +67,40 @@ int main() {
 
     catch ( int err ) {
 
-      if ( !uEndOfFileOcurred ) {
+      if ( !uGlobal::uEndOfFileOcurred ) {
 
-        if ( uProjNumber == 1 ) {
+        if ( uGlobal::uProjNumber == 1 ) {
 
-          if ( uErrorLine == 0 )
-            uErrorLine = 1 ;
+          if ( uGlobal::uErrorLine == 0 )
+            uGlobal::uErrorLine = 1 ;
 
           // 字串的Error
           if ( err == NO_CLOSING_QUOTE )
-            cout << errMesg.ErrorMessage( err ) << uErrorLine << " Column " << uErrorColumn << endl ;
+            cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorLine << " Column " << uGlobal::uErrorColumn << endl ;
 
             // 除了字串與EOF以外的Error
           else {
             // 讀掉剩下的token
             errMesg.ReadLeftStuff() ;
-            cout << errMesg.ErrorMessage( err ) << uErrorLine << " Column " <<
-                 uErrorColumn-uErrorToken.length()+1 << " is >>" << uErrorToken << "<<" << endl ;
+            cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorLine << " Column " <<
+                 uGlobal::uErrorColumn-uGlobal::uErrorToken.length()+1 << " is >>" << 
+                 uGlobal::uErrorToken << "<<" << endl ;
           } // end else
 
-          uErrorLine   = 1 ;
+          uGlobal::uErrorLine   = 1 ;
 
         } // end if
 
-        else if ( uProjNumber == 2 ) {
+        else if ( uGlobal::uProjNumber == 2 ) {
 
           if ( err == INCORRECT_NUMBER_OF_ARGUMENT )
-            cout << errMesg.ErrorMessage( err ) << uErrorToken << endl ;
+            cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorToken << endl ;
 
           else if ( err == ATTEMPT_TO_APPLY_NON_FUNCTION )
-            cout << errMesg.ErrorMessage( err ) << uErrorToken << endl ;
+            cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorToken << endl ;
 
           else if ( err == UNBOUND_SYMBOL )
-            cout << errMesg.ErrorMessage( err ) << uErrorToken << endl ;
+            cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorToken << endl ;
 
           else if ( err == FORMAT_ERROR ) {
 
@@ -142,26 +143,26 @@ int main() {
 
           } // end else if
 
-          uErrorLine = 0 ;
+          uGlobal::uErrorLine = 0 ;
 
         } // end else if
 
         // ERROR line and column initialize
         parser.mroot = NULL ; // 將pointer指向NULL
-        uProjNumber  = 1 ;
+        uGlobal::uProjNumber  = 1 ;
         // uErrorLine   = 1 ;
-        uErrorColumn = 0 ;
-        uErrorToken.clear() ;
-        uDoesThisLineHasOutput = false ;
+        uGlobal::uErrorColumn = 0 ;
+        uGlobal::uErrorToken.clear() ;
+        uGlobal::uDoesThisLineHasOutput = false ;
         cout << endl << "> " ;
 
       } // end if
 
     } // end catch
 
-  } while ( !parser.CheckEXIT( parser.mroot ) && !uEndOfFileOcurred ) ; // end while
+  } while ( !parser.CheckEXIT( parser.mroot ) && !uGlobal::uEndOfFileOcurred ) ; // end while
 
-  if ( uEndOfFileOcurred )
+  if ( uGlobal::uEndOfFileOcurred )
     cout << "ERROR (no more input) : END-OF-FILE encountered" ;
 
   cout << endl << "Thanks for using OurScheme!" ;

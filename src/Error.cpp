@@ -2,7 +2,7 @@
 // Created by Hamilton Chang MSI on 2019/1/29.
 //
 
-# include "../header/Error.h"
+# include "Error.h"
 
 string Error::ErrorMessage(int synErrType) {
 
@@ -30,7 +30,7 @@ string Error::ErrorMessage(int synErrType) {
     errMesg = "ERROR (unbound symbol) : " ;
 
   else if ( synErrType == INCORRECT_ARGUMENT_TYPE )
-    errMesg = "ERROR (" + uErrorFuncN + " with incorrect argument type) : " ;
+    errMesg = "ERROR (" + uGlobal::uErrorFuncN + " with incorrect argument type) : " ;
 
   else if ( synErrType == NON_LIST )
     errMesg = "ERROR (non-list) : " ;
@@ -43,32 +43,32 @@ string Error::ErrorMessage(int synErrType) {
 
   else if ( synErrType == FORMAT_ERROR ) {
 
-    if ( uErrorToken == "#<procedure define>" )
+    if ( uGlobal::uErrorToken == "#<procedure define>" )
       errMesg = "ERROR (DEFINE format) : " ;
 
-    else if ( uErrorToken == "#<procedure set!>" )
+    else if ( uGlobal::uErrorToken == "#<procedure set!>" )
       errMesg = "ERROR (SET! format) : " ;
 
-    else if ( uErrorToken == "#<procedure let>" )
+    else if ( uGlobal::uErrorToken == "#<procedure let>" )
       errMesg = "ERROR (LET format) : " ;
 
-    else if ( uErrorToken == "#<procedure cond>" )
+    else if ( uGlobal::uErrorToken == "#<procedure cond>" )
       errMesg = "ERROR (COND format) : " ;
 
-    else if ( uErrorToken == "#<procedure lambda>" )
+    else if ( uGlobal::uErrorToken == "#<procedure lambda>" )
       errMesg = "ERROR (LAMBDA format) : " ;
 
   } // end else if
 
   else if ( synErrType == LEVEL_ERROR ) {
 
-    if ( uErrorToken == "#<procedure clean-environment>" )
+    if ( uGlobal::uErrorToken == "#<procedure clean-environment>" )
       errMesg = "ERROR (level of CLEAN-ENVIRONMENT)" ;
 
-    else if ( uErrorToken == "#<procedure define>" )
+    else if ( uGlobal::uErrorToken == "#<procedure define>" )
       errMesg = "ERROR (level of DEFINE)" ;
 
-    else if ( uErrorToken == "#<procedure exit>" )
+    else if ( uGlobal::uErrorToken == "#<procedure exit>" )
       errMesg = "ERROR (level of EXIT)" ;
 
   } // end else if
@@ -89,6 +89,6 @@ void Error::ReadLeftStuff() {
 
   // 如果在讀取stuff的過程中，發生eof
   if ( ch == -1 )
-    uEndOfFileOcurred = true ;
+    uGlobal::uEndOfFileOcurred = true ;
 
 }

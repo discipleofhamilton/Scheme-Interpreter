@@ -17,19 +17,20 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "uGlobal.h"
 
 using namespace std ;
 
 // 所有的屬性編號
 enum Attribution{ INTEGER = 1, FLOAT, STRING, LEFT_PAREN, RIGHT_PAREN, DOT, T, NIL, QUOTE, SYMBOL } ;
 
-static int    uProjNumber  = 1 ;  // Project Number
-static int    uErrorLine   = 1 ;  // 記錄錯誤訊息中第幾列錯誤
-static int    uErrorColumn = 0 ;  // 記錄錯誤訊息中第幾行錯誤
-static string uErrorToken  = "" ; // 記錄發生錯誤的token
-static string uErrorFuncN  = "" ; // 記錄發生錯誤的functin name
-static bool   uEndOfFileOcurred = false ;      // END-OF-FILE的錯誤是否發生
-static bool   uDoesThisLineHasOutput = false ; // 目的是檢查output後到\n是否其他token
+// static int    uProjNumber  = 1 ;  // Project Number
+// static int    uErrorLine   = 1 ;  // 記錄錯誤訊息中第幾列錯誤
+// static int    uErrorColumn = 0 ;  // 記錄錯誤訊息中第幾行錯誤
+// static string uErrorToken  = "" ; // 記錄發生錯誤的token
+// static string uErrorFuncN  = "" ; // 記錄發生錯誤的functin name
+// static bool   uEndOfFileOcurred = false ;      // END-OF-FILE的錯誤是否發生
+// static bool   uDoesThisLineHasOutput = false ; // 目的是檢查output後到\n是否其他token
 
 // 所有有關token的資訊
 struct Token{

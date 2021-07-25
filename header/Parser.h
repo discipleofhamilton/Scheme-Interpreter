@@ -8,37 +8,16 @@
 
 // Proj2 ERROR
 // 總共有9種ERROR
-# define NON_LIST                        4
-# define INCORRECT_NUMBER_OF_ARGUMENT    5
-# define INCORRECT_ARGUMENT_TYPE         6
-# define ATTEMPT_TO_APPLY_NON_FUNCTION   7
-# define NO_RETURN_VALUE                 8
-# define UNBOUND_SYMBOL                  9
-# define DIVISION_BY_ZERO                10
-# define FORMAT_ERROR                    11
-# define LEVEL_ERROR                     12
-# define ATTEMPT_TO_APPLY_NON_FUNCTION_2 13
-
-
-// proj2所有功能的關鍵字
-static string  uFunctionName[] = { "cons", "list", // Constructors
-                                   "exit",         // EXIT
-                                   "quote",        // Bypassing the default evaluation
-                                   "define",       // The binding of a symbol to an S-expression
-                                   "car", "cdr",   // Part accessors
-                                   "atom?", "pair?", "list?", "null?",
-                                   "integer?", "real?", "number?", // Primitive predicates
-                                   "string?", "boolean?", "symbol?", // Primitive predicates
-                                   "+", "-", "*", "/", // Basic artithmetic, logical and string operations
-                                   "not", "and", "or", // Basic artithmetic, logical and string operations
-                                   ">", ">=", "<", "<=", "=", // Basic artithmetic, logical and string operations
-                                   "string-append", "string>?",
-                                   "string<?", "string=?", // Basic artithmetic, logical and string operations
-                                   "eqv?", "equal?", // Eqivalence tester
-                                   "begin",      // Sequencing and functional composition
-                                   "if", "cond", // Conditionals
-                                   "clean-environment" // Clean environment
-                                } ;
+#define NON_LIST                        4
+#define INCORRECT_NUMBER_OF_ARGUMENT    5
+#define INCORRECT_ARGUMENT_TYPE         6
+#define ATTEMPT_TO_APPLY_NON_FUNCTION   7
+#define NO_RETURN_VALUE                 8
+#define UNBOUND_SYMBOL                  9
+#define DIVISION_BY_ZERO                10
+#define FORMAT_ERROR                    11
+#define LEVEL_ERROR                     12
+#define ATTEMPT_TO_APPLY_NON_FUNCTION_2 13
 
 // 所有需要在parser曾所處理的function
 // 建樹、文法分析等等

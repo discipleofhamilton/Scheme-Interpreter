@@ -5,15 +5,15 @@
 #include "Scanner.h"
 
 // private
-
-// 處理字串問題
-// 一般會有三種情況
-// 1. 一般情況:當遇到雙引號(")，找到第二個雙引號 (Attribution = STRING)
-// 2. error情況:讀完緩衝區都還未出現第二個雙引號時
-// 3. 在以上兩者中，使要裡面有出現'\'的字元就要做特別處理
-//    ex: \+n = ENTER, \+t = TAB, \+" = ", *** \+\ = \ ***
+/**
+ * string isssue處理字串問題
+ * WHAT: There are three situations:
+ *    1. COMMON: meet one ", find the second one, make a pair of it
+ *    2. ERROR: The second " does not show up but the buffer is empty
+ *    3. SPECIAL: The delimeter '\' needs to be deal with in specail
+ *       e.g. \+n = ENTER, \+t = TAB, \+" = ", *** \+\ = \ ***
+ **/
 void ObjScanner::DealWithString() {
-
 
   char first = '\0', second = '\0' ;
 
@@ -31,28 +31,45 @@ void ObjScanner::DealWithString() {
       second = getchar() ; // 下一個字元
       uGlobal::uErrorColumn = uGlobal::uErrorColumn + 1 ;
 
-      // 且下個字元是n時
-      if ( second == 'n' )
-        mCurrentToken.strToken = mCurrentToken.strToken + '\n' ; // 將 \n 加到token尾端
+      switch ( second ) {
+        
+        case 'n':
+          mCurrentToken.strToken = mCurrentToken.strToken + '\n' ; // add newline to the bottom of token
+          break ;
+        case 't':
+          mCurrentToken.strToken = mCurrentToken.strToken + '\t' ; // add tab to the bottom of token
+          break ;
+        case '\"': case '\\': case '\'':
+          mCurrentToken.strToken = mCurrentToken.strToken + second ; // add " or \ or ' to the bottom of token
+          break ;
+        default:
+          mCurrentToken.strToken = mCurrentToken.strToken + first + second ;
+          break ;
 
-        // 且下個字元是t時
-      else if ( second == 't' )
-        mCurrentToken.strToken = mCurrentToken.strToken + '\t' ; // 將 \t 加到token尾端
+      }
 
-        // 且下個字元是"時
-      else if ( second == '\"' )
-        mCurrentToken.strToken = mCurrentToken.strToken + '\"' ; // 將 \" 加到token尾端
+      // // 且下個字元是n時
+      // if ( second == 'n' )
+      //   mCurrentToken.strToken = mCurrentToken.strToken + '\n' ; // 將 \n 加到token尾端
 
-        // 且下個字元是"時
-      else if ( second == '\\' )
-        mCurrentToken.strToken = mCurrentToken.strToken + '\\' ; // 將 \\ 加到token尾端
+      //   // 且下個字元是t時
+      // else if ( second == 't' )
+      //   mCurrentToken.strToken = mCurrentToken.strToken + '\t' ; // 將 \t 加到token尾端
 
-        // 且下個字元是'時
-      else if ( second == '\'' )
-        mCurrentToken.strToken = mCurrentToken.strToken + '\'' ; // 將 \\ 加到token尾端
+      //   // 且下個字元是"時
+      // else if ( second == '\"' )
+      //   mCurrentToken.strToken = mCurrentToken.strToken + '\"' ; // 將 \" 加到token尾端
 
-      else
-        mCurrentToken.strToken = mCurrentToken.strToken + first + second ;
+      //   // 且下個字元是"時
+      // else if ( second == '\\' )
+      //   mCurrentToken.strToken = mCurrentToken.strToken + '\\' ; // 將 \\ 加到token尾端
+
+      //   // 且下個字元是'時
+      // else if ( second == '\'' )
+      //   mCurrentToken.strToken = mCurrentToken.strToken + '\'' ; // 將 \\ 加到token尾端
+
+      // else
+      //   mCurrentToken.strToken = mCurrentToken.strToken + first + second ;
 
     } // end if
 
@@ -102,7 +119,9 @@ void ObjScanner::DealWithchDot(char ch) {
   // 2. Attribution == DOT
   if ( mCurrentToken.strToken.empty() && ( ch == ' ' || ch == '\t' ||
                                            ch == '\n' || ch == '(' ||
-                                           ch == ')' || ch == ';' ) ) {
+                                           ch == ')' || ch == ';'
+                                         ) 
+      ) {
 
     mCurrentToken.attribution = DOT ;    // 設定token的屬性(DOT)
 
@@ -110,8 +129,11 @@ void ObjScanner::DealWithchDot(char ch) {
 
     // 1. 當此時的token屬性是INTEGER 或 (token字串為空且下一個字元是INTEGER)
     // 2. Attribution = FLOAT
-  else if ( mCurrentToken.attribution == INTEGER ||
-            ( mCurrentToken.strToken.empty() &&  IsInteger( ch ) ) )
+  else if ( mCurrentToken.attribution == INTEGER || 
+            ( mCurrentToken.strToken.empty() &&  
+              IsInteger( ch ) 
+            ) 
+          )
     mCurrentToken.attribution = FLOAT ;  // 設定token的屬性(FLOAT)
 
     // 字元是點(.)
@@ -134,7 +156,7 @@ Token ObjScanner::PreprocessingToken() {
 
     // 此INTEGER的第一個字元是正號(+)
     if ( mCurrentToken.strToken[0] == '+' )
-      mCurrentToken.strToken = mCurrentToken.strToken.erase( 0, 1 ) ;
+      mCurrentToken.strToken = mCurrentToken.strToken.erase(0, 1) ;
 
   } // end if
 

@@ -2287,7 +2287,7 @@ ObjParser::Cons_node* ObjEvaluation::Evaluate(ObjParser::Cons_node *tree, bool t
           // ERROR (level of CLEAN-ENVIRONMENT / DEFINE / EXIT)
         } // end if
 
-          // 如果此symbol是'define'、'set!'、'let'、'cond'、'lambda'其中之一
+        // 如果此symbol是'define'、'set!'、'let'、'cond'、'lambda'其中之一
         else if ( tree->left->atom.strToken == "#<procedure define>" ||
                   tree->left->atom.strToken == "#<procedure set!>" ||
                   tree->left->atom.strToken == "#<procedure let>" ||

@@ -46,17 +46,18 @@ void ObjParser::PrintSpace(int level) {
 // 初始化
 ObjParser::ObjParser() {
 
-  mroot        = NULL ;  // 根節點指向NULL
-  mIsAddNode   = false ; // 是否有在token跟token插入一節點
-  mIsLP        = false ; // 初始為非左括號
+  mroot         = NULL ;  // 根節點指向NULL
+  mIsAddNode    = false ; // 是否有在token跟token插入一節點
+  mIsLP         = false ; // 初始為非左括號
   mIsLastNodeLP = true ;  // 初始值為是左括號
-  mdotted_pait = 0 ;     // 初始為零
+  mdotted_pait  = 0 ;     // 初始為零
   mLastToken.attribution = 0 ;
   mLastToken.strToken.clear() ;
 
 }
 
 // 確認此樹是否為結束條件
+// Check the exit conditions of the logic tree meet or not
 bool ObjParser::CheckEXIT(ObjParser::Cons_node *tree) {
 
   if ( tree == NULL ) {

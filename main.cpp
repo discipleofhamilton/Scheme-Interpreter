@@ -1,27 +1,28 @@
 // **********************************************************************************************************************************************
-//  VERSION         PROGRAMMER          DATE:BEGIN-END              DESCRIPTION(完成的功能)
+//  VERSION         PROGRAMMER          DATE:BEGIN-END              DESCRIPTION)
 //  version1.0      Hamilton Chang      2017/03/15 - 2017/03/19     Scanner class, Parser class(without error)
-//  version1.1      Hamilton Chang      2017/03/23 - 2017/03/25     Add Error Message, and object(proj1全部完成)
+//  version1.1      Hamilton Chang      2017/03/23 - 2017/03/25     Add Error Message, and object(proj1 Completed)
 //  version2.0      Hamilton Chang      2017/05/02 - 2017/05/17     Evaluation class(without error)
-//  version2.1      Hamilton Chang      2017/05/19 - 2017/05/20     Add Error Message, and object(proj2全部完成)
+//  version2.1      Hamilton Chang      2017/05/19 - 2017/05/20     Add Error Message, and object(proj2 Completed)
 //  version2.2      Hamilton Chang      2019/01/16 - 2019/01/23     Re-struct the code
 //  version3.0      Hamilton Chang      2019/00/   - 2019/00/       Extend Function 'define', Add Function 'let', 'lambda' (without error)
 // **********************************************************************************************************************************************
 
-#include "Evaluator.h" // Evaluator class
-#include "header/Error.h"     // Error class
+#include "Evaluator.h"    
+#include "header/Error.h"  
 
 int main() {
 
-  ObjScanner    scanner ;       // 宣告Scanner class
-  ObjParser     parser ;        // 宣告Parser class
-  ObjEvaluation evaluate ;      // 宣告Evaluater class
-  Error         errMesg ;       // 宣告error
-  int           numofFunc = 0 ; // Internal Function的數目
+  ObjScanner    scanner ;      
+  ObjParser     parser ;        
+  ObjEvaluation evaluate ;      
+  Error         errMesg ;       
+  int           numofFunc = 0 ; // Numbers of internal Function(primitive function)
 
   numofFunc = sizeof( uGlobal::uFunctionName ) / sizeof( uGlobal::uFunctionName[0] ) ;
 
-  // 將要keyword是atom時，所需要輸出的string
+  // Take name of the internal functions/primitive funtions as keyword
+  // Make a title for it when it considered as an "atom"
   for ( int i = 0 ; i < numofFunc ; i++ ) {
 
     string procedure = "" ;
@@ -40,9 +41,12 @@ int main() {
 
     try {
 
-      parser.mroot = parser.BuildTree( parser.mroot ) ; // 建樹並回傳指向此樹根節點的pointer
+      parser.mroot = parser.BuildTree( parser.mroot ) ; // build logical tree basee on scheme logic
+                                                        // ,and return a pointer which is point at the root of tree
 
-      // 如果不是結束條件:(exit)，且左右括弧數目相同
+      // Chech if the exit condition "(exit)" doesn't meet
+      // , and the number of the left and right parenthesis(括弧) are match  
+      // s如果不是結束條件:(exit)，且左右括弧數目相同
       if ( !parser.CheckEXIT( parser.mroot ) ) {
 
         // parser.PrettyPrint( parser.mroot, 0 ) ; // pretty print, 第一個參數:指向樹根節點的pointer、第二個參數:level
@@ -148,7 +152,7 @@ int main() {
         } // end else if
 
         // ERROR line and column initialize
-        parser.mroot = NULL ; // 將pointer指向NULL
+        parser.mroot = NULL ; 
         uGlobal::uProjNumber  = 1 ;
         // uErrorLine   = 1 ;
         uGlobal::uErrorColumn = 0 ;

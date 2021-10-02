@@ -5,7 +5,7 @@
 #ifndef SCHEME_INTERPRETER_SCANNER_H
 #define SCHEME_INTERPRETER_SCANNER_H
 
-// 有三種Syntax ERROR(文法錯誤)
+// Define three Syntax ERROR
 #define UNEXPECTED_TOKEN_ONE 1
 #define UNEXPECTED_TOKEN_TWO 2
 #define NO_CLOSING_QUOTE     3
@@ -25,38 +25,37 @@ using namespace std ;
 enum Attribution{ INTEGER = 1, FLOAT, STRING, LEFT_PAREN, RIGHT_PAREN, DOT, T, NIL, QUOTE, SYMBOL } ;
 
 // static int    uProjNumber  = 1 ;  // Project Number
-// static int    uErrorLine   = 1 ;  // 記錄錯誤訊息中第幾列錯誤
-// static int    uErrorColumn = 0 ;  // 記錄錯誤訊息中第幾行錯誤
-// static string uErrorToken  = "" ; // 記錄發生錯誤的token
-// static string uErrorFuncN  = "" ; // 記錄發生錯誤的functin name
-// static bool   uEndOfFileOcurred = false ;      // END-OF-FILE的錯誤是否發生
-// static bool   uDoesThisLineHasOutput = false ; // 目的是檢查output後到\n是否其他token
+// static int    uErrorLine   = 1 ;  // Record the line where error occured at the Scheme script
+// static int    uErrorColumn = 0 ;  // Record the column where error occured at the Scheme script line
+// static string uErrorToken  = "" ; // Record the error token
+// static string uErrorFuncN  = "" ; // Record the error functin name
+// static bool   uEndOfFileOcurred = false ;      // the flag to mark if the error of END-OF-FILE
+// static bool   uDoesThisLineHasOutput = false ; // the flag to mark if the other tokens exists before the newline charactor after outputing
 
-// 所有有關token的資訊
+// The information of token
 struct Token{
 
-  string strToken ;  // 儲存token字串
-  int    attribution ; // token的屬性
+  string strToken ; 
+  int    attribution ; 
 
 } ; // end Token
 
 class ObjScanner{
 
 private:
-// 所有不能或不需要在外面被呼叫使用的method、function、value
 
-  Token          mCurrentToken ; // 暫存目前的token
-  vector<Token>  mVec_token ;    // 儲存token
+  Token          mCurrentToken ; // the current token which is processing
+  vector<Token>  mVec_token ;    // saved the processed tokens
 
   void DealWithString() ;
-  bool IsInteger( char ch ) ;      // 確認此character + 目前的token是否為數字
-  void DealWithchDot( char ch ) ;  // 處理在buffer中出現點時做的處理
-  Token PreprocessingToken() ;     // 將切出token做前處理
+  bool IsInteger( char ch ) ;      // Check if the input charactor is digit or not
+  void DealWithchDot( char next_ch ) ;  // Process the dot is in the tail of the token, the input charactor is next charactor of the left charactors
+  Token PreprocessingToken() ;     // Pre-processing the token
 
 public:
 
-  ObjScanner() ;     // 初始化
-  Token GetToken() ; // 讀取一個token
+  ObjScanner() ;     // Initialize/Constructor
+  Token GetToken() ; // Get a token and deal with it.
 
 };
 

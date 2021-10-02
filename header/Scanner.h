@@ -21,7 +21,6 @@
 
 using namespace std ;
 
-// 所有的屬性編號
 enum Attribution{ INTEGER = 1, FLOAT, STRING, LEFT_PAREN, RIGHT_PAREN, DOT, T, NIL, QUOTE, SYMBOL } ;
 
 // static int    uProjNumber  = 1 ;  // Project Number

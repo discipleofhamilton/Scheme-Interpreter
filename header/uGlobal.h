@@ -14,13 +14,13 @@ class uGlobal {
 public:
 
   static int    uProjNumber  ;  // Project Number
-  static int    uErrorLine   ;  // 記錄錯誤訊息中第幾列錯誤
-  static int    uErrorColumn ;  // 記錄錯誤訊息中第幾行錯誤
-  static string uErrorToken  ;  // 記錄發生錯誤的token
-  static string uErrorFuncN  ;  // 記錄發生錯誤的functin name
-  static bool   uEndOfFileOcurred ;      // END-OF-FILE的錯誤是否發生
-  static bool   uDoesThisLineHasOutput ; // 目的是檢查output後到\n是否其他token
-  static string uFunctionName[40];       // proj2所有功能的關鍵字
+  static int    uErrorLine   ;  // to record the row no where the ERROR occurred
+  static int    uErrorColumn ;  // to record the column no where the ERROR occurred
+  static string uErrorToken  ;  // to record the ERROR token
+  static string uErrorFuncN  ;  // to record the ERROR function name
+  static bool   uEndOfFileOcurred ;      // the flag of whether the END-OF-FILE occurred
+  static bool   uDoesThisLineHasOutput ; // the flag of wether the other tokens exists before the newline charactor after outputing
+  static string uFunctionName[40];       // all function keyword in project 2
 
 };
 

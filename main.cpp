@@ -46,21 +46,20 @@ int main() {
 
       // Chech if the exit condition "(exit)" doesn't meet
       // , and the number of the left and right parenthesis(括弧) are match  
-      // s如果不是結束條件:(exit)，且左右括弧數目相同
       if ( !parser.CheckEXIT( parser.mroot ) ) {
 
-        // parser.PrettyPrint( parser.mroot, 0 ) ; // pretty print, 第一個參數:指向樹根節點的pointer、第二個參數:level
+        // parser.PrettyPrint( parser.mroot, 0 ) ; // pretty print, the 1st arguement: the pointer point to the root, 2nd: level of the tree
         uGlobal::uProjNumber = 2 ;
         evaluate.mReturnPointer = evaluate.Evaluate( parser.mroot, true ) ;
-        parser.PrettyPrint( evaluate.mReturnPointer, 0 ) ; // pretty print, 第一個參數:指向樹根節點的pointer、第二個參數:level
-        // parser.ClearAll( parser.mroot ) ;       // 清空樹
-        parser.mroot = NULL ; // 將pointer指向NULL
+        parser.PrettyPrint( evaluate.mReturnPointer, 0 ) ; 
+        // parser.ClearAll( parser.mroot ) ;       // clear the parser tree
+        parser.mroot = NULL ; 
 
         // ERROR line and column initialize
         uGlobal::uProjNumber  = 1 ;
         uGlobal::uErrorLine   = 1 ;
         uGlobal::uErrorColumn = 0 ;
-        uGlobal::uDoesThisLineHasOutput = true ; // 此行一有輸出，此bool就設為true
+        uGlobal::uDoesThisLineHasOutput = true ; // if there is an output at the line, then set the flag to True
         evaluate.ReObjEvalutaion() ;
 
         cout << "\n> " ;
@@ -78,13 +77,14 @@ int main() {
           if ( uGlobal::uErrorLine == 0 )
             uGlobal::uErrorLine = 1 ;
 
-          // 字串的Error
-          if ( err == NO_CLOSING_QUOTE )
+          // Deal with the ERROR of the string: NO_CLOSING_QUOTE
+          if ( err == NO_CLOSING_QUOTE ) {
             cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorLine << " Column " << uGlobal::uErrorColumn << endl ;
+          }
 
-            // 除了字串與EOF以外的Error
+          // Deal with the ERRORs out of the string's and EOF's
           else {
-            // 讀掉剩下的token
+            // Read the redundent characters
             errMesg.ReadLeftStuff() ;
             cout << errMesg.ErrorMessage( err ) << uGlobal::uErrorLine << " Column " <<
                  uGlobal::uErrorColumn-uGlobal::uErrorToken.length()+1 << " is >>" << 

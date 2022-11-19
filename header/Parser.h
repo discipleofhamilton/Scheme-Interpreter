@@ -6,8 +6,8 @@
 
 #include "Scanner.h"
 
-// Proj2 ERROR
-// 總共有9種ERROR
+// ERRORs of the Project 2
+// There 9 kinds of them
 #define NON_LIST                        4
 #define INCORRECT_NUMBER_OF_ARGUMENT    5
 #define INCORRECT_ARGUMENT_TYPE         6
@@ -19,41 +19,41 @@
 #define LEVEL_ERROR                     12
 #define ATTEMPT_TO_APPLY_NON_FUNCTION_2 13
 
-// 所有需要在parser曾所處理的function
-// 建樹、文法分析等等
+// Define a Parser class/layer to process the tokens that delivered by the Scanner
+// e.g. Build Parser Tree, and Syntax Analysis
 class ObjParser{
 
 protected:
 
-  bool       mIsAddNode ;   // 訂定現在是否有在token與token間新增一節點這樣的狀態
-  ObjScanner mScanner ;     // 所有Parser需要Scanner層support
-  Token      mLastToken ;   // 暫存上一個token
-  bool       mIsLP ;        // 在pretty print用來判斷是否為左括號
-  bool       mIsLastNodeLP ;// 在pretty print用來判斷上一個節點是否為左括號
-  int        mdotted_pait ; // dotted-pair出現的次數
+  bool       mIsAddNode ;   // the flag which was used to mark if the previous node was added between the nodes
+  ObjScanner mScanner ;     // Declare a Scanner instance to get the processed tokens from the raw inputs
+  Token      mLastToken ;   // to save the last/previous token
+  bool       mIsLP ;        // the flag which was used to mark the token is the left parenthesis '('. It only be used in the function PrettyPrint
+  bool       mIsLastNodeLP ;// the flag which was used to mark the previous token is the left parenthesis '('. It only be used in the function PrettyPrint
+  int        mdotted_pait ; // the times of the dotted-pair appearing
 
-  // 中間節點
+  // Node of the Parser Tree
   struct Cons_node{
 
-      Cons_node *right ;      // 右指標(右子樹)
-      Cons_node *left ;       // 左指標(左子樹)
-      Token     atom ;        // 樹葉節點
-      bool      dotted_pair ; // 判斷dotted pair的情況是否有發生
+    Cons_node *right ;      // the right pointer: point to the right sub-tree
+    Cons_node *left ;       // the left pointer: point to the left sub-tree
+    Token     atom ;        // node of the leafs/atoms
+    bool      dotted_pair ; // the flag of marking whether dotted pair occurred
 
   } ; // end Cons_node
 
-  Cons_node *NewNode() ;         // 宣告要新增的節點，並回傳
-  bool IsAtom( int tokenatrb ) ; // 依目前token的屬性判斷此token是否為atom node
+  Cons_node *NewNode() ;         // Declare a node which would be added
+  bool IsAtom( int tokenatrb ) ; // Check if the current node is the leaf/atom by its attribution of the token
   void PrintSpace( int level ) ;
 
 public:
 
-  Cons_node *mroot ; // 此樹的根節點
-  ObjParser() ;      // 初始化
-  bool CheckEXIT( Cons_node *tree ) ;       // 確認此樹是否為結束條件
-  Cons_node *BuildTree( Cons_node *tree ) ; // 用遞迴建樹
-  void ClearTree( Cons_node *tree ) ; // 清空樹
-  void ClearAll( Cons_node *tree ) ;  // 清空parser
+  Cons_node *mroot ; // the root of the Parser Tree
+  ObjParser() ;      // Initializer / Constructor
+  bool CheckEXIT( Cons_node *tree ) ;       // the function to Check if the exit conditions of the logic tree meet
+  Cons_node *BuildTree( Cons_node *tree ) ; // the function to build the Parser Tree with recursion
+  void ClearTree( Cons_node *tree ) ; // Clean the Parser Tree
+  void ClearAll( Cons_node *tree ) ;  // Clean the Parser instance
   void PrettyPrint( Cons_node *tree, int level ) ;
 
 };
